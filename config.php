@@ -13,6 +13,8 @@ if (!$conn) {
     die("Koneksi gagal: " . pg_last_error());
 }
 
+// testtt
+
 // SQL untuk membuat tabel
 $sql = "CREATE TABLE IF NOT EXISTS prediksi (
     id SERIAL PRIMARY KEY,
