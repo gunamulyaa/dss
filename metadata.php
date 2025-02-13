@@ -17,28 +17,17 @@ include 'sidebar.php';
         <h2>Metadata - Semua Tabel</h2>
         <hr>
 
-        <!-- Tabel Siswa -->
-        <?php include 'tables/siswa.php'; ?>
-
-        <!-- Tabel Bobot -->
-        <h3>Tabel Bobot</h3>
-        <?php include 'tables/bobot.php'; ?>
-
-        <!-- Tabel Hasil -->
-        <h3>Tabel Hasil</h3>
-        <?php include 'tables/hasil.php'; ?>
+        <!-- Tabel Metode -->
+        <h3>Tabel Metode</h3>
+        <?php include 'tables/metode.php'; ?>
 
         <!-- Tabel Kriteria -->
         <h3>Tabel Kriteria</h3>
         <?php include 'tables/kriteria.php'; ?>
 
-        <!-- Tabel Metode -->
-        <h3>Tabel Metode</h3>
-        <?php include 'tables/metode.php'; ?>
-
-        <!-- Tabel Penilaian -->
-        <h3>Tabel Penilaian</h3>
-        <?php include 'tables/penilaian.php'; ?>
+        <!-- Tabel Kriteria -->
+        <h3>Tabel Alternatif</h3>
+        <?php include 'tables/alternatif.php'; ?>
 
 
     </div>
