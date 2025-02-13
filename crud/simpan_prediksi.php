@@ -84,5 +84,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     header("Location: ../metadata.php");
+}else {
+    echo "<script>
+        alert('Akses tidak diizinkan!');
+        window.location.href = '../metadata.php';
+    </script>";
 }
+
 ?>

@@ -1,33 +1,45 @@
 <?php
-$conn = pg_connect("host=localhost dbname=dss user=postgres password=010302");
+$conn = pg_connect("host=autorack.proxy.rlwy.net dbname=railway user=postgres password=OUCHgADVOdfsEdrWFeUZFFjbcbgFfjIA"); // Koneksi ke database PostgreSQL
 
-if (!$conn) {
-    die(json_encode(["status" => "error", "message" => "Koneksi gagal: " . pg_last_error()]));
-}
 
-if ($_SERVER["REQUEST_METHOD"] == "GET") {
-    $nim = $_GET['nim'] ?? '';
+if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
+    $id = $_GET['id'];
 
-    if (empty($nim)) {
-        die(json_encode(["status" => "error", "message" => "NIM tidak boleh kosong"]));
+    // Mulai transaksi agar penghapusan bersifat atomik
+    pg_query($conn, "BEGIN");
+
+    try {
+        // Hapus nilai alternatif terkait dengan prediksi
+        $query1 = "DELETE FROM nilai_alternatif WHERE id_alternatif IN 
+                   (SELECT id FROM alternatif WHERE id_prediksi = $1)";
+        pg_query_params($conn, $query1, array($id));
+
+        // Hapus alternatif terkait dengan prediksi
+        $query2 = "DELETE FROM alternatif WHERE id_prediksi = $1";
+        pg_query_params($conn, $query2, array($id));
+
+        // Hapus kriteria terkait dengan prediksi
+        $query3 = "DELETE FROM kriteria WHERE id_prediksi = $1";
+        pg_query_params($conn, $query3, array($id));
+
+        // Hapus prediksi utama
+        $query4 = "DELETE FROM prediksi WHERE id = $1";
+        pg_query_params($conn, $query4, array($id));
+
+        // Commit transaksi jika semua berhasil
+        pg_query($conn, "COMMIT");
+
+        header("Location: ../index.php?message=success_delete");
+        exit();
+    } catch (Exception $e) {
+        // Rollback jika ada kesalahan
+        pg_query($conn, "ROLLBACK");
+
+        header("Location: ../index.php?message=error_delete");
+        exit();
     }
-
-    // Cek apakah data ada sebelum menghapus
-    $check = pg_query_params($conn, "SELECT * FROM siswa WHERE nim = $1", [$nim]);
-    if (pg_num_rows($check) == 0) {
-        die(json_encode(["status" => "error", "message" => "Data tidak ditemukan"]));
-    }
-
-    // Hapus data
-    $query = "DELETE FROM siswa WHERE nim = $1";
-    $result = pg_query_params($conn, $query, [$nim]);
-
-    if ($result) {
-        echo json_encode(["status" => "success"]);
-        header("Location: ../metadata.php");
-        exit;
-    } else {
-        echo json_encode(["status" => "error", "message" => pg_last_error($conn)]);
-    }
+} else {
+    header("Location: ../index.php?message=invalid_access");
+    exit();
 }
 ?>

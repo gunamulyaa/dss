@@ -7,29 +7,91 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-function ubahJumlah(type, delta) {
-    const input = document.getElementById(`jumlah${type.charAt(0).toUpperCase() + type.slice(1)}`);
-    let jumlah = parseInt(input.value) + delta;
-    if (jumlah < 1) jumlah = 1;
-    input.value = jumlah;
-    perbaruiForm(type, jumlah);
+function tambahKriteria() {
+    let container = document.getElementById("kriteriaContainer");
+    let index = container.children.length + 1;
+    let html = `<div class="mb-2" id="kriteria-${index}">
+                    <input type="text" class="form-control mb-1" name="kriteria[]" placeholder="Nama Kriteria" required>
+                    <input type="number" class="form-control mb-1" name="bobot[]" placeholder="Bobot" step="0.01" required>
+                    <select class="form-select mb-1" name="tipe[]" required>
+                        <option value="benefit">Benefit</option>
+                        <option value="cost">Cost</option>
+                    </select>
+                    <button type="button" class="btn btn-danger btn-sm" onclick="hapusKriteria(${index})">Hapus</button>
+                </div>`;
+    container.innerHTML += html;
+}
+
+function hapusKriteria(index) {
+    let element = document.getElementById(`kriteria-${index}`);
+    if (element) element.remove();
+}
+
+function tambahAlternatif() {
+    let container = document.getElementById("alternatifContainer");
+    let index = container.children.length + 1;
+    let html = `<div class="mb-2" id="alternatif-${index}">
+                    <input type="text" class="form-control mb-1" name="alternatif[]" placeholder="Nama Alternatif" required>
+                    <input type="number" class="form-control mb-1" name="nilai[]" placeholder="Nilai" step="0.01" required>
+                    <button type="button" class="btn btn-danger btn-sm" onclick="hapusAlternatif(${index})">Hapus</button>
+                </div>`;
+    container.innerHTML += html;
+}
+
+function hapusAlternatif(index) {
+    let element = document.getElementById(`alternatif-${index}`);
+    if (element) element.remove();
+}
+
+ // Event untuk menampilkan data ke dalam modal edit
+ document.querySelectorAll(".edit-btn").forEach(button => {
+    button.addEventListener("click", function () {
+      let id = this.dataset.id;
+      let nama = this.dataset.nama;
+      let metode = this.dataset.metode;
+
+      document.getElementById("editId").value = id;
+      document.getElementById("editNamaPrediksi").value = nama;
+      document.getElementById("editMetode").value = metode;
+
+      // Bersihkan container sebelum ditambahkan ulang
+      document.getElementById("editKriteriaContainer").innerHTML = "";
+      document.getElementById("editAlternatifContainer").innerHTML = "";
+    });
+  });
+
+  function tambahKriteriaEdit() {
+    let container = document.getElementById("editKriteriaContainer");
+    let index = container.children.length + 1;
+    let html = `<div class="mb-2" id="editKriteria-${index}">
+                    <input type="text" class="form-control mb-1" name="kriteria[]" placeholder="Nama Kriteria" required>
+                    <input type="number" class="form-control mb-1" name="bobot[]" placeholder="Bobot" step="0.01" required>
+                    <select class="form-select mb-1" name="tipe[]" required>
+                        <option value="benefit">Benefit</option>
+                        <option value="cost">Cost</option>
+                    </select>
+                    <button type="button" class="btn btn-danger btn-sm" onclick="hapusKriteriaEdit(${index})">Hapus</button>
+                </div>`;
+    container.innerHTML += html;
   }
 
-  function perbaruiForm(type, jumlah) {
-    const container = document.getElementById(`${type}Container`);
-    container.innerHTML = '';
-    for (let i = 1; i <= jumlah; i++) {
-      let html = `<div class="mb-3">
-                    <label class="form-label">Nama ${type.charAt(0).toUpperCase() + type.slice(1)} ${i}</label>
-                    <input type="text" class="form-control" name="${type}${i}">
-                  </div>`;
-      if (type === 'kriteria') {
-        html += `<div class="mb-3">
-                    <label class="form-label">Bobot Kriteria ${i}</label>
-                    <input type="number" class="form-control" name="bobot${i}" step="0.01">
-                  </div>`;
-      }
-      container.innerHTML += html;
-    }
+  function hapusKriteriaEdit(index) {
+    let element = document.getElementById(`editKriteria-${index}`);
+    if (element) element.remove();
   }
 
+  function tambahAlternatifEdit() {
+    let container = document.getElementById("editAlternatifContainer");
+    let index = container.children.length + 1;
+    let html = `<div class="mb-2" id="editAlternatif-${index}">
+                    <input type="text" class="form-control mb-1" name="alternatif[]" placeholder="Nama Alternatif" required>
+                    <input type="number" class="form-control mb-1" name="nilai[]" placeholder="Nilai" step="0.01" required>
+                    <button type="button" class="btn btn-danger btn-sm" onclick="hapusAlternatifEdit(${index})">Hapus</button>
+                </div>`;
+    container.innerHTML += html;
+  }
+
+  function hapusAlternatifEdit(index) {
+    let element = document.getElementById(`editAlternatif-${index}`);
+    if (element) element.remove();
+  }
