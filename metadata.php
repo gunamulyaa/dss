@@ -19,19 +19,7 @@ include 'sidebar.php';
 
         <!-- Tabel Metode -->
         <h3>Tabel Metode</h3>
-        <?php include 'tables/metode.php'; ?>
-
-        <!-- Tabel Kriteria -->
-        <h3>Tabel Kriteria</h3>
-        <?php include 'tables/kriteria.php'; ?>
-
-        <!-- Tabel Kriteria -->
-        <h3>Tabel Alternatif</h3>
-        <?php include 'tables/alternatif.php'; ?>
-
-        <!-- Tabel Kriteria -->
-        <h3>Tabel Hasil</h3>
-        <?php include 'tables/hasil.php'; ?>
+        <?php include 'tables/siswa.php'; ?>
 
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
