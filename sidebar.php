@@ -7,9 +7,9 @@
         <li class="nav-item">
             <a href="#" class="nav-link text-white dropdown-toggle" data-bs-toggle="dropdown">Metode</a>
             <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">SAW</a></li>
-                <li><a class="dropdown-item" href="#">WP</a></li>
-                <li><a class="dropdown-item" href="#">TOPSIS</a></li>
+                <li><a class="dropdown-item" href="saw.php">SAW</a></li>
+                <li><a class="dropdown-item" href="topsis.php">TOPSIS</a></li>
+                <li><a class="dropdown-item" href="wp.php">WP</a></li>
             </ul>
         </li>
         <li class="nav-item">
