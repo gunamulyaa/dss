@@ -29,6 +29,9 @@ include 'sidebar.php';
         <h3>Tabel Alternatif</h3>
         <?php include 'tables/alternatif.php'; ?>
 
+        <!-- Tabel Kriteria -->
+        <h3>Tabel Hasil</h3>
+        <?php include 'tables/hasil.php'; ?>
 
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
