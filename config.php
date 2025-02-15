@@ -1,9 +1,9 @@
 <?php
-$host = "autorack.proxy.rlwy.net";
-$port = "42108";
-$dbname = "railway";
+$host = "localhost";
+$port = "5432";
+$dbname = "dss-db";
 $user = "postgres";
-$password = "OUCHgADVOdfsEdrWFeUZFFjbcbgFfjIA";
+$password = "010302";
 
 // Membuat koneksi
 $conn = pg_connect("host=$host port=$port dbname=$dbname user=$user password=$password");

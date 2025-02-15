@@ -17,11 +17,21 @@ include 'sidebar.php';
         <h2>Metadata - Semua Tabel</h2>
         <hr>
 
-        <?php include 'tables/siswa.php'; ?>
+        <?php include 'tables/prediksi.php'; ?>
 
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
+    <script>
+            document.addEventListener("DOMContentLoaded", function () {
+            let dropdowns = document.querySelectorAll('.dropdown-toggle');
+            dropdowns.forEach(dropdown => {
+                dropdown.addEventListener('click', function () {
+                    let menu = this.nextElementSibling;
+                    menu.classList.toggle('show');
+                    });
+                });
+            });
+    </script>
 </body>
 </html>
